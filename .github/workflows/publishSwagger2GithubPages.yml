@@ -8,7 +8,7 @@ on:
       - '.github/workflows/publishSwagger2GithubPages.yml'
 
 jobs:
-  project-build:
+  Publish-Swagger-GithuPages:
     runs-on: ubuntu-latest
 
     steps:
@@ -32,6 +32,19 @@ jobs:
 
       - name: See swagger.yaml file
         run: cat swagger.json
+
+      - name: Generate swagger ui
+        uses: Legion2/swagger-ui-action@v1
+        with:
+          output: swagger-ui
+          spec-file: swagger.json
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Deploy to github pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: swagger-ui
 #
 #      - name: Build Swagger UI
 #        uses: swagger-api/swagger-ui-action@v1
