@@ -6,7 +6,6 @@ push:
     - 'src/**'
     - '.github/workflows/publishSwagger2GithubPages.yml'
 
-
 jobs:
   project-build:
     runs-on: ubuntu-latest
