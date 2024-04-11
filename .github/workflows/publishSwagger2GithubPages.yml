@@ -28,14 +28,7 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
 
       - name: Build and run Spring boot app
-        run: mvn spring-boot:run &
-
-      - name: Download OpenAPI
-        run: curl http://localhost:8080/v3/api-docs -o swagger.yaml
-        timeout-minutes: 4
-
-      - name: Kill Spring boot app
-        run: kill $(jobs -p) || true
+        run: mvn verify
 
       - name: See swagger.yaml file
         run: cat swagger.yaml
