@@ -31,7 +31,7 @@ jobs:
         run: mvn verify
 
       - name: See swagger.yaml file
-        run: cat swagger.yaml
+        run: cat swagger.json
 #
 #      - name: Build Swagger UI
 #        uses: swagger-api/swagger-ui-action@v1
