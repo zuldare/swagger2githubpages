@@ -1,10 +1,11 @@
 name: Deploy Swagger to Github Pages
 
-push:
-  branches: [ main ]
-  paths:
-    - 'src/**'
-    - '.github/workflows/publishSwagger2GithubPages.yml'
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'src/**'
+      - '.github/workflows/publishSwagger2GithubPages.yml'
 
 jobs:
   project-build:
