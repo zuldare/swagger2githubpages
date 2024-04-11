@@ -30,11 +30,14 @@ jobs:
       - name: Build and run Spring boot app
         run: ./mvnw spring-boot:run &
 
-#      - name: Download OpenAPI
-#        run: curl http://localhost:8080/v3/api-docs -o swagger.yaml
-#
-#      - name: Kill Spring boot app
-#        run: kill $(jobs -p) || true
+      - name: Download OpenAPI
+        run: curl http://localhost:8080/v3/api-docs -o swagger.yaml
+
+      - name: Kill Spring boot app
+        run: kill $(jobs -p) || true
+
+      - name: See swagger.yaml file
+        run: cat swagger.yaml
 #
 #      - name: Build Swagger UI
 #        uses: swagger-api/swagger-ui-action@v1
