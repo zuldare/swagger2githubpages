@@ -32,6 +32,7 @@ jobs:
 
       - name: Download OpenAPI
         run: curl http://localhost:8080/v3/api-docs -o swagger.yaml
+        timeout-minutes: 4
 
       - name: Kill Spring boot app
         run: kill $(jobs -p) || true
