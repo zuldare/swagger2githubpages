@@ -1,1 +1,48 @@
 name: Deploy Swagger to Github Pages
+
+push:
+  branches: [ main ]
+  paths:
+    - 'src/**'
+    - '.github/workflows/publishSwagger2GithubPages.yml'
+
+
+jobs:
+  project-build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'corretto'
+
+      - name: Set up the Maven dependencies caching
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+
+      - name: Build and run Spring boot app
+        run: ./mvnw spring-boot:run &
+
+      - name: Download OpenAPI
+        run: curl http://localhost:8080/v3/api-docs -o swagger.yaml
+
+      - name: Kill Spring boot app
+        run: kill $(jobs -p) || true
+
+      - name: Build Swagger UI
+        uses: swagger-api/swagger-ui-action@v1
+        with:
+          swagger_file: swagger.yaml
+
+      - name: Deploy to Github Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
