@@ -46,10 +46,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./docs
 #
-#      - name: Build Swagger UI
-#        uses: swagger-api/swagger-ui-action@v1
-#        with:
-#          swagger_file: swagger.yaml
+
 #
 #      - name: Deploy to Github Pages
 #        uses: peaceiris/actions-gh-pages@v3
